@@ -48,14 +48,18 @@ class GroupList extends MooshCommand {
             $dupe = array();
             foreach ($groupings as $grouping) {
                 if (empty($options["id"]) && empty($options["no-grouping"])) {
-                    $msg="grouping " . $grouping->id . " \"" . $grouping->name . "\"";
-                    if (!empty($options["idnumber"])) {
-                        $msg=$msg . " \"" . $grouping->idnumber . "\"";
+                    if (!empty($options["id"])) {
+                        echo $group->id . "\n";
+                    else {
+                        $msg="grouping " . $grouping->id . " \"" . $grouping->name . "\"";
+                        if (!empty($options["idnumber"])) {
+                            $msg=$msg . " \"" . $grouping->idnumber . "\"";
+                        }
+                        if (!empty($options["description"])) {
+                            $msg=$msg . " \"" . $grouping->description . " \"";
+                        }
+                        echo $msg . "\n";
                     }
-                    if (!empty($options["description"])) {
-                        $msg=$msg . " \"" . $grouping->description . " \"";
-                    }
-                    echo $msg . "\n";
                 }
                 $grouping_groups = $DB->get_records('groupings_groups', array('groupingid'=>$grouping->id) );
                 foreach ($grouping_groups as $grouping_group) {
